@@ -22,7 +22,7 @@
 ## Comenzando 
 
 ### Pre-requisitos 
-_Para ejecutar este proyecto es necesario contar con [Nose.JS](https://www.npmjs.com/package/npm)_
+_Para ejecutar este proyecto es necesario contar con [Node.JS](https://www.npmjs.com/package/npm)_
 
 
 ### Instalación y ejecución
