@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Modal from './Modal';
+import Form from './Form';
 
 const StudentEditForm = ({ id }) => {
     const [formData, setFormData] = useState({
@@ -62,34 +62,15 @@ const StudentEditForm = ({ id }) => {
     };
 
     return (
-        <form>
-            <label>
-                Nombre:
-                <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
-            </label>
-            <label>
-                Apellido:
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} />
-            </label>
-            <label>
-                Edad:
-                <input type="number" name="age" value={formData.age} onChange={handleInputChange} />
-            </label>
-            <label>
-                Género:
-                <input type="text" name="gender" value={formData.gender} onChange={handleInputChange} />
-            </label>
-            <button type="button" onClick={openModal}>
-                Guardar
-            </button>
-            {isModalOpen && (
-                <Modal onClose={closeModal}>
-                    <p>¿Estás seguro de que deseas guardar estos cambios?</p>
-                    <button onClick={handleSubmit}>Sí</button>
-                    <button onClick={closeModal}>No</button>
-                </Modal>
-            )}
-        </form>
+        <Form
+            formData={formData}
+            handleInputChange={handleInputChange}
+            isModalOpen={isModalOpen}
+            openModal={openModal}
+            closeModal={closeModal}
+            handleSubmit={handleSubmit}
+            modalMessage="¿Estás seguro de que deseas guardar estos cambios?"
+        />
     );
 };
 

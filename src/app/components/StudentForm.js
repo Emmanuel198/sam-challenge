@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Form from './Form';
 
 const StudentForm = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ const StudentForm = () => {
     age: '',
     gender: '',
   });
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const handleInputChange = (e) => {
@@ -19,9 +20,18 @@ const StudentForm = () => {
     });
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    router.push('/');
+  };
+
   const handleSubmit = (e) => {
     const studentStorage = localStorage.getItem('student')
-    const newFormData = { ...formData, id: crypto.randomUUID()}
+    const newFormData = { ...formData, id: crypto.randomUUID() }
     if (studentStorage && studentStorage.length >= 0) {
       const studentJson = JSON.parse(studentStorage)
       const newStudentJson = [...studentJson, newFormData]
@@ -29,31 +39,20 @@ const StudentForm = () => {
     } else {
       localStorage.setItem('student', JSON.stringify([newFormData]))
     }
+    setIsModalOpen(false)
     router.push('/');
   };
 
   return (
-    <form>
-      <label>
-        Nombre:
-        <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
-      </label>
-      <label>
-        Apellido:
-        <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} />
-      </label>
-      <label>
-        Edad:
-        <input type="number" name="age" value={formData.age} onChange={handleInputChange} />
-      </label>
-      <label>
-        Género:
-        <input type="text" name="gender" value={formData.gender} onChange={handleInputChange} />
-      </label>
-      <button type="button" onClick={handleSubmit}>
-        Guardar
-      </button>
-    </form>
+    <Form
+      formData={formData}
+      handleInputChange={handleInputChange}
+      isModalOpen={isModalOpen}
+      openModal={openModal}
+      closeModal={closeModal}
+      handleSubmit={handleSubmit}
+      modalMessage="¿Estás seguro de que deseas crear este nuevo alumno?"
+    />
   );
 };
 
