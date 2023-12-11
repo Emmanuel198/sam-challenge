@@ -29,7 +29,7 @@ const Form = ({ formData, handleInputChange, isModalOpen, openModal, closeModal,
             </div>
             {isModalOpen && (
                 <Modal onClose={closeModal} >
-                    <p>{modalMessage}</p>
+                    <p style={{ color: 'white' }}>{modalMessage}</p>
                     <button className={style.boton} onClick={handleSubmit}>Sí</button>
                     <button className={style.boton} onClick={closeModal}>No</button>
                 </Modal>

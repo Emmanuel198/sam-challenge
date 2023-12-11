@@ -77,7 +77,7 @@ const StudentList = () => {
       </div>
       {isModalOpen && (
         <Modal onClose={closeModal}>
-          <p>¿Estás seguro de que deseas eliminar este estudiante?</p>
+          <p style={{ color: 'white' }}>¿Estás seguro de que deseas eliminar este estudiante?</p>
           <button className={style.boton} onClick={handleDelete}>Sí</button>
           <button className={style.boton} onClick={closeModal}>No</button>
         </Modal>
