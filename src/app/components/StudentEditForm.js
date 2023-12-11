@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Modal from './Modal';
 
 const StudentEditForm = ({ id }) => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const StudentEditForm = ({ id }) => {
         age: '',
         gender: '',
     });
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const router = useRouter();
     useEffect(() => {
@@ -32,6 +34,15 @@ const StudentEditForm = ({ id }) => {
         });
     };
 
+    const openModal = () => {
+        setIsModalOpen(true);
+
+    };
+    const closeModal = () => {
+        setIsModalOpen(false);
+        router.push('/');
+    };
+
     const handleSubmit = (e) => {
         const studentStorage = localStorage.getItem('student')
 
@@ -46,6 +57,7 @@ const StudentEditForm = ({ id }) => {
             })
             localStorage.setItem('student', JSON.stringify(newStudentArray))
         }
+        setIsModalOpen(false)
         router.push('/');
     };
 
@@ -67,9 +79,16 @@ const StudentEditForm = ({ id }) => {
                 Género:
                 <input type="text" name="gender" value={formData.gender} onChange={handleInputChange} />
             </label>
-            <button type="button" onClick={handleSubmit}>
+            <button type="button" onClick={openModal}>
                 Guardar
             </button>
+            {isModalOpen && (
+                <Modal onClose={closeModal}>
+                    <p>¿Estás seguro de que deseas guardar estos cambios?</p>
+                    <button onClick={handleSubmit}>Sí</button>
+                    <button onClick={closeModal}>No</button>
+                </Modal>
+            )}
         </form>
     );
 };
